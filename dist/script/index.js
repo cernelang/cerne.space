@@ -20,8 +20,8 @@ const get = (id) => document.getElementById(id),
 
 click("docs", "https://docs.cerne.space");
 click("package_manager", "https://cerne.run");
-click("github");
-click("discord");
+click("github", "https://github.com/cernelang/cerne");
+click("discord", "https://discord.gg/psYzcQ3AtE");
 
 // generate stars
 function generate_stars() {
