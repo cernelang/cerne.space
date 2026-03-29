@@ -17,12 +17,8 @@ app.get("/", (req, res) => {
 
 // links
 app.get("/github", (req, res) => {
-    res.redirect("https://github.com/kashiexe/cerne");
+    res.redirect("https://github.com/cernelang/cerne");
 })
-
-app.get("/docs", (req, res) => {
-    res.sendFile(__dirname + "/src/pages/docs.html");
-});
 
 app.get("/discord", (req, res) => {
     res.redirect("https://discord.gg/psYzcQ3AtE");

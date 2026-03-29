@@ -1,0 +1,38 @@
+
+:root {
+    --keyword: #f47067;
+    --identifier: #f7af71;
+    --function: #f9db56;
+    --number: #f9e156;
+    --string: #6ee7b7;
+    --symbol: #eeeeeee1;
+    --reserved: #de89f8;
+}
+
+.keyword {
+    color: var(--keyword);
+}
+
+.identifier {
+    color: var(--identifier);
+}
+
+.number {
+    color: var(--number);
+}
+
+.string {
+    color: var(--string);
+}
+
+.symbol {
+    color: var(--symbol);
+}
+
+.function, .template {
+    color: var(--function);
+}
+
+.register, .type {
+    color: var(--reserved);
+}

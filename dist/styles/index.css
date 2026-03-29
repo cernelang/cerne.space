@@ -11,12 +11,18 @@
 
 /* Global stuff */
 
+@font-face {
+    font-family: thordis;
+    src: url(/assets/thordis.ttf) format("truetype");
+}
+
 :root {
     --background-color: #030304;
     --header-background: rgba(255, 255, 255, 0.03);
     --button-background: rgba(0, 0, 0, 0.05);
     --button-hover: rgba(0, 0, 0, 0.15);
     --border: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.2);
     --accent: #00d0ffbe;
     --text-primary: #edededf3;
     --text-secondary: #a1a1a1e1;
@@ -27,20 +33,54 @@
     color: var(--background-color);
 }
 
-body {
-    margin: 0;
+::-webkit-scrollbar {
+    width: 7.5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: all ease-in-out .2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--border-hover);
+}
+
+html, body {
     padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.container,
+.container-fluid {
+    min-width: 0;
+}
+
+body {
     font-family: "Outfit", sans-serif;
     background-color: var(--background-color);
     color: var(--text-primary);
+    overflow-x: clip;
 }
 
 #background {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 130vh;
     background-color: var(--background-color);
     z-index: -1;
     overflow: hidden;
@@ -49,8 +89,10 @@ body {
 
 #stars {
     width: 100%;
-    height: 100%;
-    position: relative;
+    height: 130vh;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .top-glow {
@@ -88,13 +130,64 @@ body {
     }
 }
 
+.comet {
+    position: absolute;
+    left: var(--start-x, 0);
+    top: var(--start-y, 0);
+    width: 150px; 
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--text-primary));
+    filter: drop-shadow(0 0 5px var(--text-primary));
+    animation: comet_fall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes comet_fall {
+    0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(800px, 800px) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+.comet_sparkle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px 1px var(--text-primary);
+    opacity: 0;
+    animation: sparkle_fade linear forwards;
+    pointer-events: none;
+}
+
+@keyframes sparkle_fade {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(0) translateY(20px); /* Slight downward drift */
+        opacity: 0;
+    }
+}
+
 /* Header related stuff */
 
 #header {
     background-color: var(--header-background) !important;
     backdrop-filter: blur(12px);
     border-radius: 8px;
-    width: calc(80% - 40px);
+    width: min(1200px, calc(100% - 40px));
     position: fixed;
     left: 50%;
     top: 20px;
@@ -164,6 +257,23 @@ button:hover {
     background-color: var(--button-hover);
 }
 
+.activated {
+    background-color: var(--text-primary);
+    color: var(--background-color);
+}
+
+.activated:hover {
+    background-color: var(--text-secondary);
+}
+
+.to_activate {
+    border: 2px dashed var(--text-primary);
+}
+
+.to_activate:hover {
+    border: 2px solid var(--text-primary);
+}
+
 #discord i {
     color: var(--accent);
 }
@@ -197,7 +307,7 @@ p {
 
 #download {
     background-color: var(--text-primary);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
     color: var(--background-color);
     box-shadow: 0px 0px 15px var(--text-primary);
 }
@@ -208,11 +318,96 @@ p {
 
 #learn_more {
     background-color: var(--accent);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
     color: var(--background-color);
     box-shadow: 0px 0px 15px var(--accent);
 }
 
 #learn_more:hover {
     box-shadow: 0px 0px 20px var(--accent);
+}
+
+/* whatis section */
+#whatis {
+    border-top: var(--border) 2px dashed;
+    padding: 50px 0px;
+    width: 100% !important;
+}
+
+#whatis h1 {
+    width: 100%;
+    text-align: center;
+}
+
+#whatis #wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+#whatis #wrapper #left-container {
+    width: 50vw;
+}
+
+#whatis #wrapper #right-container {
+    width: 50vw;
+}
+
+#demo {
+    background-color: var(--background-color);
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: thordis;
+    color: var(--text-primary);
+    border: var(--border) 2px solid;
+    text-align: left;
+    white-space: none;
+    font-weight: bold;
+    box-shadow: 0px 10px 10px var(--border);
+}
+
+#demo_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    height: 70px;
+    width: 100%;
+    border-bottom: 2px dashed var(--border);
+    overflow-x: scroll;
+}
+
+#demo_header::-webkit-scrollbar {
+    height: 7.5px;
+}
+
+#demo_code {
+    margin-top: 20px;
+}
+
+.url {
+    color: var(--accent);
+    border-bottom: 1px dashed var(--accent);
+    cursor: pointer;
+    transition: all ease-in-out .2s;
+}
+
+.url:hover {
+    border-bottom: 1px solid var(--accent);
+}
+
+/* Footer */
+footer {
+    box-shadow: 0px 0px 5px var(--border);
+    border-top: var(--text-primary) 1px solid;
+    height: 30vh;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+footer #copyright {
+    position: absolute;
+    bottom: 10px;
 }
