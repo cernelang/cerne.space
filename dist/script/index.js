@@ -142,6 +142,7 @@ function highlight_code(code) {
 get("hello_world").addEventListener("click", (e) => {
     get("demo_code").innerHTML = `<code>${highlight_code(snippets["hello_world.ce"])}</code>`;
     e.target.classList.add("activated");
+    get("hello_world").classList.remove("to_activate");
     get("basic_math").classList.remove("activated");
     get("basic_math").classList.add("to_activate");
 });
@@ -149,8 +150,13 @@ get("hello_world").addEventListener("click", (e) => {
 get("basic_math").addEventListener("click", (e) => {
     get("demo_code").innerHTML = `<code>${highlight_code(snippets["basic_math.ce"])}</code>`;
     e.target.classList.add("activated");
+    get("basic_math").classList.remove("to_activate");
     get("hello_world").classList.remove("activated");
     get("hello_world").classList.add("to_activate");
+});
+
+get("learn_more").addEventListener("click", (e) => {
+    window.location.href = "#whatis";
 });
 
 window.onload = () => {
